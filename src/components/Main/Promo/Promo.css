@@ -1,0 +1,29 @@
+.promo {
+  position: relative;
+  background: #073042;
+  padding-top: 75px;
+}
+
+.promo__title {
+  margin: 0;
+  padding-top: 50px;
+  margin-left: 70px;
+  max-width: 626px;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 52px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.promo__logo {
+  margin: 0;
+  background: url(../../../../images/promo-logo.svg);
+  background-repeat: no-repeat;
+  width: 722px;
+  height: 244px;
+  margin-top: 102px;
+  margin-left: 488px;
+  opacity: 0.7;
+  padding-bottom: 60px;
+}

@@ -1,0 +1,110 @@
+.about-me {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding-top: 112px;
+}
+.about-me__name {
+  text-align: left;
+  margin: 0;
+}
+
+.about-me__job {
+  margin: 0;
+  margin-top: 18px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  color: #ffffff;
+}
+
+.about-me__wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 66px;
+}
+
+.about-me__avatar {
+  margin: 0;
+  background: url(../../../../images/anton-grigorash-avatar.jpg);
+  background-size: cover;
+  width: 270px;
+  height: 327px;
+  border-radius: 10px;
+  margin-bottom: -400px;
+}
+.about-me__description {
+  margin: 0;
+  margin-top: 26px;
+  max-width: 600px;
+  line-height: 22px;
+}
+
+.about-me__github-link {
+  display: inline-block;
+  margin: 0;
+  margin-top: 99px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+}
+
+.about-me__github-link:hover {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.about-me__portfolio {
+  margin: 0;
+  margin-top: 101px;
+  padding: 0;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: #8b8b8b;
+}
+
+.about-me__portfolio-item {
+  justify-content: space-between;
+  list-style-type: none;
+  margin: 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #424242;
+  padding-bottom: 19px;
+}
+
+.about-me__portfolio-item:last-of-type {
+  border: none;
+  margin-bottom: 125px;
+}
+
+.about-me__portfolio-item:first-of-type {
+  margin-top: 50px;
+}
+
+.about-me__portfolio-link {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 0;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 50px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.about-me__portfolio-link:hover {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.about-me__portfolio-link-arrow {
+  margin: 0;
+  background-image: url(../../../../images/link-arrow.svg);
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 31px;
+}
