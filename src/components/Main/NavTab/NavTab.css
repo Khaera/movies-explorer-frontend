@@ -1,0 +1,43 @@
+.navtab__buttons {
+  margin: 0;
+  margin-top: 21px;
+  z-index: 1;
+}
+
+.navtab__register-button {
+  margin: 0;
+  margin-right: 30px;
+  padding: 0;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #ffffff;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.navtab__register-button:hover {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.navtab__login-button {
+  margin: 0;
+  padding: 0;
+  background: #3ddc84;
+  border-radius: 3px;
+  border: none;
+  width: 76px;
+  height: 32px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000000;
+  cursor: pointer;
+}
+
+.navtab__login-button:hover {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
