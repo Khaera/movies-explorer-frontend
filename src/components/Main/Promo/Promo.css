@@ -4,10 +4,17 @@
   padding-top: 75px;
 }
 
+.promo__container {
+  max-width: 1140px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
 .promo__title {
   margin: 0;
   padding-top: 50px;
-  margin-left: 70px;
   max-width: 626px;
   font-weight: 400;
   font-size: 40px;
@@ -23,7 +30,7 @@
   width: 722px;
   height: 244px;
   margin-top: 102px;
-  margin-left: 488px;
   opacity: 0.7;
   padding-bottom: 60px;
+  align-self: flex-end;
 }

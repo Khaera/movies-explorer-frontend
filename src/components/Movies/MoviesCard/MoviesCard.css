@@ -1,0 +1,54 @@
+.movie {
+  max-width: 270px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.movie__image {
+  max-width: 270px;
+  max-height: 151px;
+  margin: 0;
+}
+
+.movie__wrapper {
+  display: flex;
+  justify-content: space-between;
+  max-width: 246px;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.movie__title {
+  margin: 0;
+  max-width: 206px;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: #ffffff;
+  margin-top: 1px;
+}
+
+.movie__button {
+  margin: 0;
+  padding: 0;
+  width: 16px;
+  height: 24px;
+  border: none;
+  background: none;
+  background: url(../../../images/movie-radio.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.movie__duration {
+  margin: 0;
+  margin-left: 12px;
+  margin-top: 3px;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  display: flex;
+  align-items: center;
+  color: #8b8b8b;
+}
