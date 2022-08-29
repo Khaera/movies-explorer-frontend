@@ -1,18 +1,20 @@
+import { Link } from "react-router-dom";
+
 function Navigation() {
   return (
     <nav className="navigation">
       <div className="navigation__films">
-        <a href="_blank" className="navigation__film-link">
+        <Link to="/movies" className="navigation__film-link">
           Фильмы
-        </a>
-        <a href="_blank" className="navigation__film-link">
+        </Link>
+        <Link to="/saved-movies" className="navigation__film-link">
           Сохранённые фильмы
-        </a>
+        </Link>
       </div>
       <div className="navigation__account">
-        <a href="_blank" className="navigation__account-link">
+        <Link to="/profile" className="navigation__account-link">
           Аккаунт
-        </a>
+        </Link>
         <p className="navigation__account-image"></p>
       </div>
     </nav>

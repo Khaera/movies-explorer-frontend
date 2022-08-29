@@ -22,7 +22,7 @@ function AboutMe() {
         слушать музыку, читать литературу и кодить. Есть 2 кота.
       </p>
 
-      <a href="_blank" className="about-me__github-link">
+      <a href="https://github.com/Khaera" className="about-me__github-link">
         Github
       </a>
     </section>

@@ -14,6 +14,7 @@ function Register() {
             required
             minLength="2"
             maxLength="30"
+            placeholder="Введите имя"
           />
         </label>
         <label className="register__field">
@@ -23,6 +24,7 @@ function Register() {
             name="name"
             type="email"
             required
+            placeholder="Введите E-mail"
           />
         </label>
         <label className="register__field">
@@ -32,6 +34,7 @@ function Register() {
             name="password"
             type="password"
             required
+            placeholder="Введите пароль"
           />
         </label>
         <button className="register__submit-button" type="submit">
