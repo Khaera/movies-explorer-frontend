@@ -1,29 +1,17 @@
-import MoviesCard from "../MoviesCard/MoviesCard";
+import { Route } from "react-router-dom";
 
-function MoviesCardList() {
+function MoviesCardList({ children }) {
   return (
     <div className="movies-list__wrapper">
-      <ul className="movies-list">
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-      </ul>
-      <button className="movies-list__button" type="button">
-        Ещё
-      </button>
+      <ul className="movies-list">{children}</ul>
+      <Route path="/movies">
+        <button className="movies-list__button" type="button">
+          Ещё
+        </button>
+      </Route>
+      <Route path="/saved-movies">
+        <div className="movies-list__saved-devider"></div>
+      </Route>
     </div>
   );
 }

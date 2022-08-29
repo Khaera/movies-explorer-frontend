@@ -6,11 +6,13 @@ function AboutMe() {
       <h2 className="about-me__caption caption">Студент</h2>
       <div className="about-me__wrapper">
         <h3 className="about-me__name title">Антон</h3>
-        <img
-          src={avatar}
-          alt="моя фотография"
-          className="about-me__avatar"
-        ></img>
+        <div className="about-me__avatar-wrapper">
+          <img
+            src={avatar}
+            alt="моя фотография"
+            className="about-me__avatar"
+          ></img>
+        </div>
       </div>
       <h4 className="about-me__job">Фронтенд-разработчик, 23 года</h4>
       <p className="about-me__description description">

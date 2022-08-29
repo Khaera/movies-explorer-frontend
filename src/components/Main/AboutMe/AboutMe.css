@@ -24,6 +24,7 @@
 }
 
 .about-me__avatar {
+  object-fit: cover;
   margin: 0;
   width: 270px;
   max-height: 327px;

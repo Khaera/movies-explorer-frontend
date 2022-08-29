@@ -29,20 +29,39 @@
   margin-top: 1px;
 }
 
-.movie__button {
+.movie__like-button {
   margin: 0;
   padding: 0;
   width: 16px;
   height: 24px;
   border: none;
   background: none;
-  background: url(../../../images/movie-radio.svg);
+  background: url(../../../images/like-icon.svg);
   background-repeat: no-repeat;
   background-position: center center;
   cursor: pointer;
 }
 
-.movie__button:hover {
+.movie__delete-button {
+  margin: 0;
+  margin-bottom: 5px;
+  padding: 0;
+  width: 16px;
+  height: 19px;
+  border: none;
+  background: none;
+  background: url(../../../images/delete-icon.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  cursor: pointer;
+}
+
+.movie__like-button:hover {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.movie__delete-button:hover {
   opacity: 0.6;
   transition: opacity 0.3s ease;
 }

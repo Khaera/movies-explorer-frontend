@@ -13,6 +13,9 @@ function Header() {
         <Route path="/movies">
           <Navigation />
         </Route>
+        <Route path="/saved-movies">
+          <Navigation />
+        </Route>
       </div>
     </header>
   );
