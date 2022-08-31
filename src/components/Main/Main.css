@@ -28,3 +28,11 @@
   letter-spacing: -0.04em;
   color: #ffffff;
 }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .caption {
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 28px;
+  }
+}

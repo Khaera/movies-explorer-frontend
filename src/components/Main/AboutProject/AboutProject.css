@@ -86,3 +86,92 @@
   color: #8b8b8b;
   margin-bottom: 110px;
 }
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .about-project {
+    margin-top: 91px;
+    width: 86.98%;
+  }
+  .about-project__description-text {
+    font-size: 12px;
+    line-height: 18px;
+    margin-top: 22px;
+  }
+
+  .about-project__description {
+    margin-right: 38px;
+  }
+
+  .about-project__term {
+    margin-top: 93px;
+  }
+
+  .about-project__term-wrapper {
+    width: 21.3%;
+  }
+
+  .about-project__term__stack-text {
+    margin-top: 13px;
+    margin-bottom: 90px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .about-project {
+    margin-top: 70px;
+    width: 88.75%;
+  }
+
+  .about-project__description {
+    margin-right: 0;
+    margin-bottom: 56px;
+  }
+
+  .about-project__description:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .about-project__description-title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .about-project__description-text {
+    margin-top: 16px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about-project__description-wrapper {
+    flex-direction: column;
+    margin-top: 60px;
+  }
+
+  .about-project__term {
+    margin-top: 60px;
+  }
+
+  .about-project__term-wrapper {
+    width: 43.5%;
+  }
+
+  .about-project__term__stack-line-backend {
+    height: 23px;
+    padding-top: 12px;
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  .about-project__term__stack-text {
+    margin-top: 10px;
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  .about-project__term__stack-line-frontend {
+    height: 23px;
+    padding-top: 12px;
+    font-size: 11px;
+    line-height: 13px;
+  }
+}
