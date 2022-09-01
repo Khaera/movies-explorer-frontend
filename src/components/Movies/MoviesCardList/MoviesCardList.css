@@ -40,3 +40,32 @@
 .movies-list__saved-devider {
   margin-top: 105px;
 }
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .movies-list__wrapper {
+    width: 92.188%;
+  }
+  .movies-list {
+    grid-template-columns: repeat(auto-fill, minmax(339px, 1fr));
+    column-gap: 30px;
+    row-gap: 34px;
+  }
+
+  .movies-list__button {
+    margin-top: 82px;
+  }
+  .movies-list__saved-devider {
+    margin-top: 90px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .movies-list {
+    margin-top: 49px;
+    row-gap: 32px;
+  }
+
+  .movies-list__button {
+    margin-top: 96px;
+  }
+}

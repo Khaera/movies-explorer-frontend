@@ -3,7 +3,9 @@
   width: 100%;
   margin: 0 auto;
 }
+
 .register__icon {
+  display: block;
   width: 41px;
   height: 38px;
   background-image: url("../../images/header-logo.svg");
@@ -13,9 +15,14 @@
   margin-top: 70px;
 }
 
+.register__icon:hover {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
 .register__title {
   margin: 0;
-  margin-top: 40px;
+  margin-top: 37px;
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
@@ -116,4 +123,40 @@
 .register__login-link:hover {
   opacity: 0.6;
   transition: opacity 0.5s ease;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .register {
+    width: 81.25%;
+  }
+
+  .register__icon {
+    margin: 0 auto;
+    margin-top: 56px;
+  }
+
+  .register__title {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .register__form {
+    margin-top: 80px;
+  }
+
+  .register__signin > p {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .register__login-link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .register__submit-button {
+    margin-top: 157px;
+    font-size: 12px;
+    line-height: 15px;
+  }
 }

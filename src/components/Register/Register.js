@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Register() {
   return (
     <section className="register">
-      <p className="register__icon"></p>
+      <Link to="/" className="register__icon"></Link>
       <h3 className="register__title">Добро пожаловать!</h3>
       <form name="register" className="register__form">
         <label className="register__field">

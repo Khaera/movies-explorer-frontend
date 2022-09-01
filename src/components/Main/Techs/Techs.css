@@ -108,6 +108,7 @@
 
   .techs__list {
     display: grid;
+    justify-items: center;
     grid-template-columns: repeat(2, minmax(84px, 0.3fr));
     row-gap: 10px;
     column-gap: 10px;

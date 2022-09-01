@@ -1,14 +1,18 @@
 .movie {
-  max-width: 270px;
+  background: #222222;
+  border-radius: 10px;
+  max-width: 339px;
+  overflow: hidden;
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
 .movie__image {
-  max-width: 270px;
-  max-height: 151px;
+  min-width: 270px;
+  height: 151px;
   margin: 0;
+  object-fit: cover;
 }
 
 .movie__wrapper {
@@ -76,4 +80,33 @@
   display: flex;
   align-items: center;
   color: #8b8b8b;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .movie__image {
+    min-width: 339px;
+    height: 190px;
+  }
+
+  .movie__wrapper {
+    max-width: 339px;
+    width: 92.92%;
+    margin-top: 11px;
+  }
+
+  .movie__duration {
+    margin-bottom: 14px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .movie__image {
+    height: 168px;
+  }
+
+  .movie__wrapper {
+    max-width: 300px;
+    width: 91.999%;
+    margin-top: 11px;
+  }
 }

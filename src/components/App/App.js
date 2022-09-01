@@ -7,8 +7,14 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
 import PageNotFound from "../PageNotFound/PageNotFound";
+import { useState } from "react";
 
 function App() {
+  const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+
+  function toggleBurgerMenuClick() {
+    setIsBurgerMenuOpen(!isBurgerMenuOpen);
+  }
   return (
     <div className="App">
       <Switch>
@@ -16,10 +22,16 @@ function App() {
           <Main />
         </Route>
         <Route path="/movies">
-          <Movies />
+          <Movies
+            onBurgerClick={toggleBurgerMenuClick}
+            isOpen={isBurgerMenuOpen}
+          />
         </Route>
         <Route path="/saved-movies">
-          <SavedMovies />
+          <SavedMovies
+            onBurgerClick={toggleBurgerMenuClick}
+            isOpen={isBurgerMenuOpen}
+          />
         </Route>
         <Route path="/signup">
           <Register />
@@ -28,7 +40,10 @@ function App() {
           <Login />
         </Route>
         <Route path="/profile">
-          <Profile />
+          <Profile
+            onBurgerClick={toggleBurgerMenuClick}
+            isOpen={isBurgerMenuOpen}
+          />
         </Route>
         <Route path="*">
           <PageNotFound />

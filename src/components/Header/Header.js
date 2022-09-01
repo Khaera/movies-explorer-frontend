@@ -1,8 +1,9 @@
 import { Link, Route } from "react-router-dom";
+import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import NavTab from "../Main/NavTab/NavTab";
 import Navigation from "../Navigation/Navigation";
 
-function Header() {
+function Header({ isOpen, onBurgerClick }) {
   return (
     <header className="header">
       <div className="header__container">
@@ -13,13 +14,16 @@ function Header() {
           <NavTab />
         </Route>
         <Route path="/movies">
-          <Navigation />
+          <BurgerMenu isOpen={isOpen} />
+          <Navigation onBurgerClick={onBurgerClick} isOpen={isOpen} />
         </Route>
         <Route path="/saved-movies">
-          <Navigation />
+          <BurgerMenu isOpen={isOpen} />
+          <Navigation onBurgerClick={onBurgerClick} isOpen={isOpen} />
         </Route>
         <Route path="/profile">
-          <Navigation />
+          <BurgerMenu isOpen={isOpen} />
+          <Navigation onBurgerClick={onBurgerClick} isOpen={isOpen} />
         </Route>
       </div>
     </header>
