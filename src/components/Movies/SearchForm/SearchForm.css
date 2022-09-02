@@ -35,8 +35,8 @@
 }
 
 .search__input:focus {
-  border: 0.5px solid #3ddc84;
-  transition: border 2s ease;
+  outline: 1px solid #3ddc84;
+  transition: outline 2s ease;
 }
 
 .search__button {

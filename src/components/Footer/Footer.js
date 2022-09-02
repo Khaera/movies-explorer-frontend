@@ -7,10 +7,14 @@ function Footer() {
       <div className="footer__items">
         <p className="footer__year">&copy; 2022</p>
         <div className="footer__links">
-          <a href="https://practicum.yandex.ru" className="footer__link">
+          <a
+            href="https://practicum.yandex.ru"
+            target="blank"
+            className="footer__link"
+          >
             Яндекс.Практикум
           </a>
-          <a href="https://github.com" className="footer__link">
+          <a href="https://github.com" target="blank" className="footer__link">
             Github
           </a>
         </div>

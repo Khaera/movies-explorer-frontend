@@ -17,7 +17,11 @@ function AboutMe() {
         кота.
       </p>
 
-      <a href="https://github.com/Khaera" className="about-me__github-link">
+      <a
+        href="https://github.com/Khaera"
+        target="blank"
+        className="about-me__github-link"
+      >
         Github
       </a>
     </section>

@@ -22,7 +22,7 @@ function Navigation({ onBurgerClick, isOpen }) {
         </div>
       </nav>
       <img
-        alt="burger menu button"
+        alt="кнопка бургерного меню"
         className="navigation__burger-button"
         src={isOpen ? closeButton : burgerButton}
         onClick={onBurgerClick}
