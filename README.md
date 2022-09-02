@@ -1,1 +1,1 @@
-# movies-explorer-frontend
+## Фронтенд расположен по адресу: https://moviesexplorer.khaera.nomoredomains.sbs/

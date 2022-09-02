@@ -1,0 +1,49 @@
+.filter {
+  max-width: 1140px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 29px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #424242;
+}
+
+.filter__button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 36px;
+  height: 20px;
+  background: url(../../../images/thumbler-on.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.filter__caption {
+  margin: 0;
+  margin-left: 12px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: #ffffff;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .filter {
+    margin-top: 40px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .filter {
+    margin-top: 46px;
+  }
+
+  .filter__caption {
+    font-size: 11px;
+    line-height: 18px;
+  }
+}
