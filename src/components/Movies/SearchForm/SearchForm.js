@@ -3,10 +3,10 @@ import Filter from "../Filter/Filter";
 function SearchForm() {
   return (
     <div className="search">
-      <div className="search__container">
-        <input className="search__input" placeholder="Фильм"></input>
-        <button className="search__button"></button>
-      </div>
+      <form name="search-movie" className="search__container">
+        <input className="search__input" placeholder="Фильм" required></input>
+        <button type="submit" className="search__button"></button>
+      </form>
       <Filter />
     </div>
   );
