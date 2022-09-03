@@ -8,6 +8,8 @@ import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import { useState } from "react";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 function App() {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
@@ -15,23 +17,27 @@ function App() {
   function toggleBurgerMenuClick() {
     setIsBurgerMenuOpen(!isBurgerMenuOpen);
   }
+
+  const headerEndpoints = ["/movies", "/saved-movies", "/profile", "/"];
+  const footerEndpoints = ["/movies", "/saved-movies", "/"];
+
   return (
     <div className="App">
+      <Route exact path={headerEndpoints}>
+        <Header
+          onBurgerClick={toggleBurgerMenuClick}
+          isOpen={isBurgerMenuOpen}
+        />
+      </Route>
       <Switch>
         <Route exact path="/">
           <Main />
         </Route>
         <Route path="/movies">
-          <Movies
-            onBurgerClick={toggleBurgerMenuClick}
-            isOpen={isBurgerMenuOpen}
-          />
+          <Movies />
         </Route>
         <Route path="/saved-movies">
-          <SavedMovies
-            onBurgerClick={toggleBurgerMenuClick}
-            isOpen={isBurgerMenuOpen}
-          />
+          <SavedMovies />
         </Route>
         <Route path="/signup">
           <Register />
@@ -40,15 +46,15 @@ function App() {
           <Login />
         </Route>
         <Route path="/profile">
-          <Profile
-            onBurgerClick={toggleBurgerMenuClick}
-            isOpen={isBurgerMenuOpen}
-          />
+          <Profile />
         </Route>
         <Route path="*">
           <PageNotFound />
         </Route>
       </Switch>
+      <Route exact path={footerEndpoints}>
+        <Footer />
+      </Route>
     </div>
   );
 }

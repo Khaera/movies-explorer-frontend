@@ -4,25 +4,26 @@ import NavTab from "../Main/NavTab/NavTab";
 import Navigation from "../Navigation/Navigation";
 
 function Header({ isOpen, onBurgerClick }) {
+  const burgerEnpoints = ["/movies", "/saved-movies", "/profile"];
   return (
     <header className="header">
       <div className="header__container">
         <Link to="/">
           <p className="header__nav-logo"></p>
         </Link>
+        <Route exact path={burgerEnpoints}>
+          <BurgerMenu isOpen={isOpen} onBurgerClick={onBurgerClick} />
+        </Route>
         <Route exact path="/">
           <NavTab />
         </Route>
         <Route path="/movies">
-          <BurgerMenu isOpen={isOpen} />
           <Navigation onBurgerClick={onBurgerClick} isOpen={isOpen} />
         </Route>
         <Route path="/saved-movies">
-          <BurgerMenu isOpen={isOpen} />
           <Navigation onBurgerClick={onBurgerClick} isOpen={isOpen} />
         </Route>
         <Route path="/profile">
-          <BurgerMenu isOpen={isOpen} />
           <Navigation onBurgerClick={onBurgerClick} isOpen={isOpen} />
         </Route>
       </div>
