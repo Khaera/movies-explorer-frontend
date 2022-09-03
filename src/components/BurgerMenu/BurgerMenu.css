@@ -68,7 +68,7 @@
   }
 }
 
-@media screen and (min-height: 400px) and (max-height: 470px) {
+@media screen and (min-height: 340px) and (max-height: 470px) {
   .burger__link:first-of-type {
     margin-top: 100px;
   }
