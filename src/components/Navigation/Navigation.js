@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import burgerButton from "../../images/burger-button.svg";
-import closeButton from "../../images/close-button.svg";
 
 function Navigation({ onBurgerClick }) {
   return (
