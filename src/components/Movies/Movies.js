@@ -2,17 +2,15 @@ import MoviesCard from "./MoviesCard/MoviesCard";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import SearchForm from "./SearchForm/SearchForm";
 
-function Movies() {
+function Movies({ movies, saveMovie }) {
   return (
     <>
       <section className="movies">
         <SearchForm />
         <MoviesCardList>
-          <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-          <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-          <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-          <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-          <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
+          {movies.map((item) => (
+            <MoviesCard key={item.id} movie={item} saveMovie={saveMovie} />
+          ))}
         </MoviesCardList>
       </section>
     </>

@@ -1,4 +1,4 @@
-class MovieApi {
+class MoviesApi {
   constructor({ url }) {
     this._url = url;
   }
@@ -9,7 +9,7 @@ class MovieApi {
       : Promise.reject(`Произошла ошибка. Код ошибки: ${res.status}`);
   }
 
-  getAllMovies() {
+  getMovies() {
     return fetch(`${this._url}/beatfilm-movies`, {
       method: "GET",
       headers: {
@@ -19,8 +19,8 @@ class MovieApi {
   }
 }
 
-const movieApi = new MovieApi({
+const moviesApi = new MoviesApi({
   url: "https://api.nomoreparties.co"
 });
 
-export default movieApi;
+export default moviesApi;

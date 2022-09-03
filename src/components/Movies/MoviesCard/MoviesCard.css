@@ -1,7 +1,7 @@
 .movie {
   background: #222222;
   border-radius: 10px;
-  max-width: 339px;
+  width: 100%;
   overflow: hidden;
   list-style-type: none;
   padding: 0;
@@ -10,15 +10,16 @@
 
 .movie__image {
   min-width: 270px;
+  width: 100%;
   height: 151px;
   margin: 0;
-  object-fit: cover;
 }
 
 .movie__wrapper {
   display: flex;
   justify-content: space-between;
   max-width: 246px;
+  width: 93.21%;
   margin: 0 auto;
   margin-top: 10px;
 }
@@ -90,7 +91,6 @@
 
   .movie__wrapper {
     max-width: 339px;
-    width: 92.92%;
     margin-top: 11px;
   }
 
@@ -100,6 +100,9 @@
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
+  .movie {
+    width: 91.999%;
+  }
   .movie__image {
     height: 168px;
   }

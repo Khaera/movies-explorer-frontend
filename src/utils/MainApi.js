@@ -33,7 +33,7 @@ class MainApi {
     }).then((res) => this._getResponseData(res));
   }
 
-  getMovies() {
+  getSavedMovies() {
     return fetch(`${this._url}/movies`, {
       method: "GET",
       headers: {
@@ -43,19 +43,7 @@ class MainApi {
     }).then((res) => this._getResponseData(res));
   }
 
-  createMovie({
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailerLink,
-    thumbnail,
-    movieId,
-    nameRU,
-    nameEN
-  }) {
+  createMovie(data) {
     return fetch(`${this._url}/movies`, {
       method: "POST",
       headers: {
@@ -63,17 +51,17 @@ class MainApi {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`
       },
       body: JSON.stringify({
-        country: country,
-        director: director,
-        duration: duration,
-        year: year,
-        description: description,
-        image: image,
-        trailerLink: trailerLink,
-        thumbnail: thumbnail,
-        movieId: movieId,
-        nameRU: nameRU,
-        nameEN: nameEN
+        country: data.country,
+        director: data.director,
+        duration: data.duration,
+        year: data.year,
+        description: data.description,
+        image: `https://api.nomoreparties.co${data.image.url.toString()}`,
+        trailerLink: data.trailerLink,
+        thumbnail: `https://api.nomoreparties.co${data.image.formats.thumbnail.url.toString()}`,
+        movieId: data.id,
+        nameRU: data.nameRU,
+        nameEN: data.nameEN
       })
     }).then((res) => this._getResponseData(res));
   }
@@ -90,7 +78,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  url: "https://api.moviesexplorer.khaera.nomoredomains.sbs"
+  url: "http://localhost:3001"
 });
 
 export default mainApi;
