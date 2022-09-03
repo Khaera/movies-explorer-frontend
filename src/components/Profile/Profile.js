@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
-import Header from "../Header/Header";
 
-function Profile({ onBurgerClick, isOpen }) {
+function Profile() {
   return (
     <>
-      <Header onBurgerClick={onBurgerClick} isOpen={isOpen} />
       <section className="profile">
         <h2 className="profile__title">Привет, Антон!</h2>
         <div className="profile__container">

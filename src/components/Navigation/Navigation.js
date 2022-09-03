@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import burgerButton from "../../images/burger-button.svg";
 import closeButton from "../../images/close-button.svg";
 
-function Navigation({ onBurgerClick, isOpen }) {
+function Navigation({ onBurgerClick }) {
   return (
     <>
       <nav className="navigation">
@@ -24,7 +24,7 @@ function Navigation({ onBurgerClick, isOpen }) {
       <img
         alt="кнопка бургерного меню"
         className="navigation__burger-button"
-        src={isOpen ? closeButton : burgerButton}
+        src={burgerButton}
         onClick={onBurgerClick}
       />
     </>

@@ -1,13 +1,10 @@
-import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
 import MoviesCard from "./MoviesCard/MoviesCard";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import SearchForm from "./SearchForm/SearchForm";
 
-function Movies({ onBurgerClick, isOpen }) {
+function Movies() {
   return (
     <>
-      <Header onBurgerClick={onBurgerClick} isOpen={isOpen} />
       <section className="movies">
         <SearchForm />
         <MoviesCardList>
@@ -18,7 +15,6 @@ function Movies({ onBurgerClick, isOpen }) {
           <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
         </MoviesCardList>
       </section>
-      <Footer />
     </>
   );
 }

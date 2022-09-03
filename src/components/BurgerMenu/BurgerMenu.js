@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 
-function BurgerMenu({ isOpen }) {
+function BurgerMenu({ isOpen, onBurgerClick }) {
   return (
     <div className={`burger ${isOpen ? "burger_opened" : "burger_hidden"}`}>
+      <button
+        className="burger__close-button"
+        type="button"
+        onClick={onBurgerClick}
+      ></button>
       <div className="burger__container">
         <Link to="/" className="navigation__film-link burger__link">
           Главная
