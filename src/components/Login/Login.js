@@ -1,18 +1,38 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Login() {
+function Login({ onLogin }) {
+  const [data, setData] = useState({
+    email: "",
+    password: ""
+  });
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setData({
+      ...data,
+      [name]: value
+    });
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    const { email, password } = data;
+    onLogin({ email, password });
+  }
   return (
     <section className="register">
       <Link to="/">
         <p className="register__icon"></p>
       </Link>
       <h3 className="register__title">Рады видеть!</h3>
-      <form name="register" className="register__form">
+      <form name="register" className="register__form" onSubmit={handleSubmit}>
         <label className="register__field">
           <span className="register__caption">E-mail</span>
           <input
             className="register__input"
-            name="name"
+            name="email"
+            value={data.email || ""}
+            onChange={handleChange}
             type="email"
             required
           />
@@ -22,6 +42,8 @@ function Login() {
           <input
             className="register__input"
             name="password"
+            value={data.password || ""}
+            onChange={handleChange}
             type="password"
             required
           />

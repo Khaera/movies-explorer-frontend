@@ -1,29 +1,31 @@
 import { Route } from "react-router-dom";
+import { handleChangeDuration } from "../../../utils/constants";
 
-function MoviesCard({ movie, saveMovie }) {
-  function duration(duration) {
-    if (duration < 60) {
-      return `${movie.duration} мин`;
-    }
-    if (duration > 60 && duration < 120) {
-      return `1 час ${movie.duration - 60} мин`;
-    }
+function MoviesCard({ movie, onSaveMovie, onDeleteMovie, savedMovies }) {
+  const savedMovie = savedMovies.find((m) => m.movieId === movie.id);
 
-    if (duration > 120) {
-      return `2 часа ${movie.duration - 120} мин`;
-    }
-
-    if (duration === 60) {
-      return `1 час`;
-    }
-    if (duration === 120) {
-      return `2 часа`;
+  function handleSaveMovie() {
+    if (!savedMovie) {
+      onSaveMovie({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: `https://api.nomoreparties.co${movie.image.url}`,
+        trailerLink: movie.trailerLink,
+        thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN
+      });
+    } else {
+      onDeleteMovie(savedMovies.filter((m) => m.movieId === movie.id)[0]);
     }
   }
 
-  function saveMoviee() {
-    saveMovie(movie);
-    console.log(movie);
+  function handleDeleteMovie() {
+    onDeleteMovie(movie);
   }
 
   return (
@@ -48,14 +50,20 @@ function MoviesCard({ movie, saveMovie }) {
           <button
             className="movie__like-button"
             type="button"
-            onClick={saveMoviee}
+            onClick={handleSaveMovie}
           />
         </Route>
         <Route path="/saved-movies">
-          <button className="movie__delete-button" type="button" />
+          <button
+            className="movie__delete-button"
+            type="button"
+            onClick={handleDeleteMovie}
+          />
         </Route>
       </div>
-      <p className="movie__duration">{duration(movie.duration)}</p>
+      <p className="movie__duration">
+        {handleChangeDuration(movie.duration, movie)}
+      </p>
     </li>
   );
 }

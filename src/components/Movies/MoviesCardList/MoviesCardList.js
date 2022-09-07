@@ -1,6 +1,13 @@
 import { Route } from "react-router-dom";
+import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ children }) {
+function MoviesCardList({
+  children,
+  onSaveMovie,
+  savedMovies,
+  onDeleteMovie,
+  movies
+}) {
   return (
     <div className="movies-list__wrapper">
       <ul className="movies-list">{children}</ul>

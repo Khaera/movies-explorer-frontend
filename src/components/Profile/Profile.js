@@ -1,23 +1,27 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function Profile() {
+function Profile({ onSignout }) {
+  const currentUser = useContext(CurrentUserContext);
+
   return (
     <>
       <section className="profile">
-        <h2 className="profile__title">Привет, Антон!</h2>
+        <h2 className="profile__title">{`Привет, ${currentUser.name}!`}</h2>
         <div className="profile__container">
           <div className="profile__info-container">
             <span>Имя</span>
-            <p>Антон</p>
+            <p>{currentUser.name}</p>
           </div>
           <div className="profile__info-container">
             <span>E-mail</span>
-            <p>email@ya.ru</p>
+            <p>{currentUser.email}</p>
           </div>
           <button className="profile__edit-button" type="button">
             Редактировать
           </button>
-          <Link to="/" className="profile__signout">
+          <Link to="/" className="profile__signout" onClick={onSignout}>
             Выйти из аккаунта
           </Link>
         </div>

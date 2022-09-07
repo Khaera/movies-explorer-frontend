@@ -50,19 +50,7 @@ class MainApi {
         "content-type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("jwt")}`
       },
-      body: JSON.stringify({
-        country: data.country,
-        director: data.director,
-        duration: data.duration,
-        year: data.year,
-        description: data.description,
-        image: `https://api.nomoreparties.co${data.image.url.toString()}`,
-        trailerLink: data.trailerLink,
-        thumbnail: `https://api.nomoreparties.co${data.image.formats.thumbnail.url.toString()}`,
-        movieId: data.id,
-        nameRU: data.nameRU,
-        nameEN: data.nameEN
-      })
+      body: JSON.stringify(data)
     }).then((res) => this._getResponseData(res));
   }
 
