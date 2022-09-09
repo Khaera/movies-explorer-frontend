@@ -89,7 +89,9 @@ function SearchForm({ onSearch, onSubmitCheckbox, disabled, disabledSaved }) {
 
         <button
           type="submit"
-          className="search__button"
+          className={`search__button ${
+            !inputSearchError.isValid ? "search__button_error" : ""
+          }`}
           disabled={!inputSearchError.isValid}
         ></button>
       </form>
