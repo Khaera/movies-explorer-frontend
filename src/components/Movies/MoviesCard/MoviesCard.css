@@ -37,13 +37,9 @@
 .movie__like-button {
   margin: 0;
   padding: 0;
-  width: 16px;
+  width: 24px;
   height: 24px;
-  border: none;
-  background: none;
-  background: url(../../../images/like-icon.svg);
-  background-repeat: no-repeat;
-  background-position: center center;
+  object-fit: cover;
   cursor: pointer;
 }
 
@@ -51,13 +47,10 @@
   margin: 0;
   margin-bottom: 5px;
   padding: 0;
-  width: 16px;
+  width: 12px;
   height: 19px;
-  border: none;
-  background: none;
-  background: url(../../../images/delete-icon.svg);
-  background-repeat: no-repeat;
-  background-position: center center;
+  object-fit: contain;
+  align-self: flex-start;
   cursor: pointer;
 }
 

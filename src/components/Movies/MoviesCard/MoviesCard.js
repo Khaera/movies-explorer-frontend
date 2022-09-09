@@ -1,26 +1,17 @@
 import { Route } from "react-router-dom";
 import { handleChangeDuration } from "../../../utils/constants";
+import saveIcon from "../../../images/like-icon.svg";
+import savedIcon from "../../../images/liked-icon.svg";
+import deleteIcon from "../../../images/delete-icon.svg";
 
 function MoviesCard({ movie, onSaveMovie, onDeleteMovie, savedMovies }) {
   const savedMovie = savedMovies.find((m) => m.movieId === movie.id);
 
-  function handleSaveMovie() {
+  function submitMovie() {
     if (!savedMovie) {
-      onSaveMovie({
-        country: movie.country,
-        director: movie.director,
-        duration: movie.duration,
-        year: movie.year,
-        description: movie.description,
-        image: `https://api.nomoreparties.co${movie.image.url}`,
-        trailerLink: movie.trailerLink,
-        thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-        movieId: movie.id,
-        nameRU: movie.nameRU,
-        nameEN: movie.nameEN
-      });
+      onSaveMovie(movie);
     } else {
-      onDeleteMovie(savedMovies.filter((m) => m.movieId === movie.id)[0]);
+      onDeleteMovie(savedMovie);
     }
   }
 
@@ -31,32 +22,38 @@ function MoviesCard({ movie, onSaveMovie, onDeleteMovie, savedMovies }) {
   return (
     <li className="movie">
       <Route path="/movies">
-        <img
-          className="movie__image"
-          src={`https://api.nomoreparties.co${movie.image.url}`}
-          alt="изображение фильма"
-        />
+        <a href={movie.trailerLink} target="blank">
+          <img
+            className="movie__image"
+            src={`https://api.nomoreparties.co${movie.image.url}`}
+            alt="изображение фильма"
+          />
+        </a>
       </Route>
       <Route path="/saved-movies">
-        <img
-          className="movie__image"
-          src={movie.image}
-          alt="изображение фильма"
-        />
+        <a href={movie.trailerLink} target="blank">
+          <img
+            className="movie__image"
+            src={movie.image}
+            alt="изображение фильма"
+          />
+        </a>
       </Route>
       <div className="movie__wrapper">
         <h2 className="movie__title">{movie.nameRU}</h2>
         <Route path="/movies">
-          <button
+          <img
+            alt="Поставить-убрать лайк"
             className="movie__like-button"
-            type="button"
-            onClick={handleSaveMovie}
+            onClick={submitMovie}
+            src={!savedMovie ? saveIcon : savedIcon}
           />
         </Route>
         <Route path="/saved-movies">
-          <button
+          <img
+            alt="Удалить фильм"
             className="movie__delete-button"
-            type="button"
+            src={deleteIcon}
             onClick={handleDeleteMovie}
           />
         </Route>

@@ -43,14 +43,26 @@ class MainApi {
     }).then((res) => this._getResponseData(res));
   }
 
-  createMovie(data) {
+  createMovie(movie) {
     return fetch(`${this._url}/movies`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("jwt")}`
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: `https://api.nomoreparties.co/${movie.image.url}`,
+        trailerLink: movie.trailerLink,
+        thumbnail: `https://api.nomoreparties.co/${movie.image.formats.thumbnail.url}`,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN
+      })
     }).then((res) => this._getResponseData(res));
   }
 

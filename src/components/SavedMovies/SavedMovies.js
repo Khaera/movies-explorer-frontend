@@ -1,33 +1,35 @@
 import SearchForm from "../Movies/SearchForm/SearchForm";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
-import MoviesCard from "../Movies/MoviesCard/MoviesCard";
+import Preloader from "../Preloader/Preloader";
 
 function SavedMovies({
   onSearch,
+  foundSavedMovies,
+  savedMovies,
   onSaveMovie,
-  movies,
   onDeleteMovie,
-  savedMovies
+  disabledCheckboxSaved,
+  onSubmitCheckbox,
+  preloaderStatus
 }) {
   return (
     <>
       <section className="saved-movies">
-        <SearchForm onSearch={onSearch} />
-        <MoviesCardList
-          onSaveMovie={onSaveMovie}
-          movies={movies}
-          onDeleteMovie={onDeleteMovie}
-        >
-          {savedMovies.map((item) => (
-            <MoviesCard
-              key={item._id || item.movieId}
-              movie={item}
-              onSaveMovie={onSaveMovie}
-              savedMovies={savedMovies}
-              onDeleteMovie={onDeleteMovie}
-            />
-          ))}
-        </MoviesCardList>
+        <SearchForm
+          onSearch={onSearch}
+          onSubmitCheckbox={onSubmitCheckbox}
+          disabledSaved={disabledCheckboxSaved}
+        />
+        {preloaderStatus ? (
+          <Preloader />
+        ) : (
+          <MoviesCardList
+            foundMovies={foundSavedMovies || savedMovies}
+            onSaveMovie={onSaveMovie}
+            savedMovies={savedMovies}
+            onDeleteMovie={onDeleteMovie}
+          />
+        )}
       </section>
     </>
   );
