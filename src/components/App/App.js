@@ -333,6 +333,7 @@ function App() {
             component={Profile}
             onSignout={handleSignout}
             loggedIn={loggedIn}
+            onUpdateUser={handleUpdateUser}
           />
           <Route path="*" component={PageNotFound} history={history} />
         </Switch>
