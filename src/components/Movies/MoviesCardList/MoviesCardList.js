@@ -1,6 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { Route, useLocation } from "react-router-dom";
+import {
+  MAX_ELEMENTS,
+  TIMEOUT,
+  WIDTH_1025PX,
+  WIDTH_1280PX,
+  WIDTH_768PX
+} from "../../../utils/constants";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 function MoviesCardList({
@@ -27,17 +34,17 @@ function MoviesCardList({
   }
 
   useEffect(() => {
-    if (width < 767) {
+    if (width < WIDTH_768PX) {
       setDefaultMovies(5);
-    } else if (width < 1025) {
+    } else if (width < WIDTH_1025PX) {
       setDefaultMovies(6);
-    } else if (width < 1280) {
+    } else if (width < WIDTH_1280PX) {
       setDefaultMovies(9);
     } else {
       setDefaultMovies(12);
     }
     if (location.pathname === "/saved-movies") {
-      setMaxEl(120);
+      setMaxEl(MAX_ELEMENTS);
     }
   }, [foundMovies, width, location]);
 
@@ -57,13 +64,13 @@ function MoviesCardList({
 
   function onSubscribe() {
     window.addEventListener("resize", function () {
-      setTimeout(handleSubscribe, 1000);
+      setTimeout(handleSubscribe, TIMEOUT);
     });
   }
 
   function offSubscribe() {
     window.removeEventListener("resize", function () {
-      setTimeout(handleSubscribe, 1000);
+      setTimeout(handleSubscribe, TIMEOUT);
     });
   }
 
@@ -78,11 +85,11 @@ function MoviesCardList({
   }
 
   function handleAddButtonClick() {
-    if (width < 768) {
+    if (width < WIDTH_768PX) {
       setMaxEl(maxEl + 5);
-    } else if (width < 1025) {
+    } else if (width < WIDTH_1025PX) {
       setMaxEl(maxEl + 2);
-    } else if (width < 1280) {
+    } else if (width < WIDTH_1280PX) {
       setMaxEl(maxEl + 3);
     } else {
       setMaxEl(maxEl + 4);

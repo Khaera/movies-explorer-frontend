@@ -1,3 +1,5 @@
+import { BASE_URL } from "./constants";
+
 class MainApi {
   constructor({ url }) {
     this._url = url;
@@ -78,7 +80,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  url: "http://localhost:3001"
+  url: BASE_URL
 });
 
 export default mainApi;

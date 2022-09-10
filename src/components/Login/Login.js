@@ -1,23 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Login({ onLogin }) {
-  const [data, setData] = useState({
-    email: "",
-    password: ""
+  const [formValues, setFormValues] = useState({
+    email: {
+      value: "",
+      isValid: false,
+      errorMessage: ""
+    },
+    password: {
+      value: "",
+      isValid: false,
+      errorMessage: ""
+    }
   });
 
+  const [disabled, setDisabled] = useState(false);
+
+  const isValid = formValues.email.isValid && formValues.password.isValid;
+
   function handleChange(e) {
-    const { name, value } = e.target;
-    setData({
-      ...data,
-      [name]: value
-    });
+    // деструктуризируем свойство target, получая значения инпутов и ошибки
+    const { name, value, validity, validationMessage } = e.target;
+    // устанавливаем новое состояние, обязательно совмещая с предыдущим
+    // чтобы значения других инпутов не перезаписались на undefined
+    setFormValues((prevState) => ({
+      ...prevState,
+      [name]: {
+        ...formValues[name],
+        value,
+        isValid: validity.valid,
+        errorMessage: validationMessage
+      }
+    }));
   }
+
+  useEffect(() => {
+    isValid ? setDisabled(false) : setDisabled(true);
+  }, [isValid]);
+
   function handleSubmit(e) {
     e.preventDefault();
-    const { email, password } = data;
-    onLogin({ email, password });
+    onLogin({
+      email: formValues.email.value,
+      password: formValues.password.value
+    });
   }
   return (
     <section className="register">
@@ -29,28 +56,44 @@ function Login({ onLogin }) {
         <label className="register__field">
           <span className="register__caption">E-mail</span>
           <input
-            className="register__input"
+            className={`register__input ${
+              formValues.email.errorMessage && "register__input-error"
+            }`}
             name="email"
-            value={data.email || ""}
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            value={formValues.email.value || ""}
             onChange={handleChange}
             type="email"
             required
+            placeholder="Введите email"
           />
         </label>
+        <span className="register__error-span">
+          {formValues.email.errorMessage}
+        </span>
         <label className="register__field">
           <span className="register__caption">Пароль</span>
           <input
-            className="register__input"
+            className={`register__input ${
+              formValues.password.errorMessage && "register__input-error"
+            }`}
             name="password"
-            value={data.password || ""}
+            value={formValues.password.value || ""}
             onChange={handleChange}
             type="password"
             required
+            placeholder="Введите пароль"
           />
         </label>
+        <span className="register__error-span">
+          {formValues.password.errorMessage}
+        </span>
         <button
-          className="register__submit-button login__submit-button"
+          className={`register__submit-button login__submit-button ${
+            !isValid && "register__submit-button-disabled"
+          }`}
           type="submit"
+          disabled={disabled}
         >
           Войти
         </button>

@@ -17,3 +17,13 @@ export function handleChangeDuration(duration, movie) {
     return `2 часа`;
   }
 }
+
+export const WIDTH_768PX = 768;
+export const WIDTH_1025PX = 1025;
+export const WIDTH_1280PX = 1280;
+export const MAX_ELEMENTS = 120;
+export const TIMEOUT = 1000;
+
+export const BASE_URL = "https://api.moviesexplorer.khaera.nomoredomains.sbs";
+
+export const BASE_MOVIES_URL = "https://api.nomoreparties.co";

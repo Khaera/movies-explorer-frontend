@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "./App.css";
-import Main from "../Main/Main";
+
 import {
   Redirect,
   Route,
@@ -7,23 +8,32 @@ import {
   useHistory,
   useLocation
 } from "react-router-dom";
+
+import { useState, useEffect } from "react";
+
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+
+import Main from "../Main/Main";
+
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
+
+import PageNotFound from "../PageNotFound/PageNotFound";
+
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
+
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
-import PageNotFound from "../PageNotFound/PageNotFound";
-import Preloader from "../Preloader/Preloader";
-import { useState } from "react";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import mainApi from "../../utils/MainApi";
-import { useEffect } from "react";
-import moviesApi from "../../utils/MoviesApi";
+
 import * as auth from "../../utils/auth";
-import InfoTooltip from "../InfoTooltip/InfoTooltip";
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import mainApi from "../../utils/MainApi";
+import moviesApi from "../../utils/MoviesApi";
 
 function App() {
   const history = useHistory();
@@ -55,6 +65,7 @@ function App() {
   const [disabledCheckboxSaved, setDisabledCheckboxSaved] = useState(true);
 
   const [preloaderStatus, setPreloaderStatus] = useState(false);
+
   useEffect(() => {
     tokenCheck();
   }, []);
@@ -68,26 +79,23 @@ function App() {
 
   //блокировка чекбокса если нет сохраненных фильмов
   useEffect(() => {
-    savedMovies.length !== 0
+    savedMovies.length !== 0 || savedMoviesCopy.length !== 0
       ? setDisabledCheckboxSaved(false)
       : setDisabledCheckboxSaved(true);
-  }, [savedMovies]);
+  }, [savedMovies, savedMoviesCopy]);
 
   useEffect(() => {
     if (loggedIn) {
-      getSavedMovies();
+      mainApi
+        .getSavedMovies()
+        .then((data) => {
+          const userMovies = data.filter((m) => m.owner === currentUser._id);
+          setSavedMovies(userMovies);
+          setSavedMoviesCopy(userMovies);
+        })
+        .catch((err) => console.log(err));
     }
-  }, [loggedIn]);
-
-  function getSavedMovies() {
-    mainApi
-      .getSavedMovies()
-      .then((data) => {
-        setSavedMovies(data);
-        setSavedMoviesCopy(data);
-      })
-      .catch((err) => console.log(err));
-  }
+  }, [currentUser, loggedIn]);
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("searchedMovies"))) {
@@ -253,6 +261,7 @@ function App() {
         if (data.token) {
           localStorage.setItem("jwt", data.token);
           setLoggedIn(true);
+          tokenCheck();
           history.push("/movies");
         }
       })

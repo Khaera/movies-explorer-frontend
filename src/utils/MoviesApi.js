@@ -1,3 +1,5 @@
+import { BASE_MOVIES_URL } from "./constants";
+
 class MoviesApi {
   constructor({ url }) {
     this._url = url;
@@ -20,7 +22,7 @@ class MoviesApi {
 }
 
 const moviesApi = new MoviesApi({
-  url: "https://api.nomoreparties.co"
+  url: BASE_MOVIES_URL
 });
 
 export default moviesApi;

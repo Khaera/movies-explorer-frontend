@@ -1,4 +1,4 @@
-export const baseUrl = "http://localhost:3001";
+import { BASE_URL } from "./constants";
 
 const checkResponse = (response) => {
   return response.ok
@@ -7,7 +7,7 @@ const checkResponse = (response) => {
 };
 
 export function createUser({ name, email, password }) {
-  return fetch(`${baseUrl}/signup`, {
+  return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -22,7 +22,7 @@ export function createUser({ name, email, password }) {
 }
 
 export function authorize({ name, email, password }) {
-  return fetch(`${baseUrl}/signin`, {
+  return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -37,7 +37,7 @@ export function authorize({ name, email, password }) {
 }
 
 export const getContent = (token) => {
-  return fetch(`${baseUrl}/users/me`, {
+  return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
       Accept: "application/json",
