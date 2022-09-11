@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function Profile({ onSignout, onUpdateUser }) {
+function Profile({ onSignout, onUpdateUser, isLoading }) {
   const currentUser = useContext(CurrentUserContext);
 
   const [disabled, setDisabled] = useState(false);
@@ -25,6 +25,10 @@ function Profile({ onSignout, onUpdateUser }) {
   useEffect(() => {
     isValid === true ? setDisabled(false) : setDisabled(true);
   }, [isValid]);
+
+  useEffect(() => {
+    isLoading ? setDisabled(true) : setDisabled(false);
+  }, [isLoading]);
 
   useEffect(() => {
     if (

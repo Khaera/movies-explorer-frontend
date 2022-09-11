@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -11,20 +12,17 @@ function SearchForm({ onSearch, onSubmitCheckbox, disabled, disabledSaved }) {
   const location = useLocation();
 
   useEffect(() => {
+    const checkboxStatus = JSON.parse(
+      localStorage.getItem("checkboxStatusSavedMovies")
+    );
     // эффект, который устанавливает значения полей input и checkbox, если они сохранены в памяти
-    if (localStorage.getItem("movieName")) {
-      if (location.pathname === "/movies") {
-        setInputValue(localStorage.getItem("movieName"));
-        setCheckbox(JSON.parse(localStorage.getItem("checkboxStatus")));
-        setInputSearchError({});
-      } else if (location.pathname === "/saved-movies") {
-        const checkboxStatus = JSON.parse(
-          localStorage.getItem("checkboxStatusSavedMovies")
-        );
-        setInputValue(localStorage.getItem("savedMovieName"));
-        setCheckbox(checkboxStatus);
-        onSubmitCheckbox(checkboxStatus);
-      }
+    if (location.pathname === "/movies") {
+      setInputValue(localStorage.getItem("movieName"));
+      setCheckbox(JSON.parse(localStorage.getItem("checkboxStatus")));
+      setInputSearchError({});
+    } else if (location.pathname === "/saved-movies") {
+      setCheckbox(checkboxStatus);
+      onSubmitCheckbox(checkboxStatus);
     }
   }, []);
 

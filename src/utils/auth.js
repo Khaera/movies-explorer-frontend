@@ -1,9 +1,7 @@
 import { BASE_URL } from "./constants";
 
 const checkResponse = (response) => {
-  return response.ok
-    ? response.json()
-    : Promise.reject(`Ошибка: ${response.statusText}`);
+  return response.ok ? response.json() : Promise.reject(response);
 };
 
 export function createUser({ name, email, password }) {

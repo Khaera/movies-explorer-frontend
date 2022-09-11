@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Register({ onRegister }) {
+function Register({ onRegister, isLoading }) {
   const [formValues, setFormValues] = useState({
     name: {
       value: "",
@@ -55,6 +55,10 @@ function Register({ onRegister }) {
       password: formValues.password.value
     });
   }
+
+  useEffect(() => {
+    isLoading ? setDisabled(true) : setDisabled(false);
+  }, [isLoading]);
 
   return (
     <section className="register">
@@ -116,7 +120,7 @@ function Register({ onRegister }) {
         </span>
         <button
           className={`register__submit-button ${
-            !isValid && "register__submit-button-disabled"
+            isValid && !isLoading ? "" : "register__submit-button-disabled"
           }`}
           type="submit"
           disabled={disabled}

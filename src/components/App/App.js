@@ -1,13 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "./App.css";
 
-import {
-  Redirect,
-  Route,
-  Switch,
-  useHistory,
-  useLocation
-} from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 
@@ -37,7 +31,6 @@ import moviesApi from "../../utils/MoviesApi";
 
 function App() {
   const history = useHistory();
-  const location = useLocation();
 
   const [checkboxStatus, setCheckboxStatus] = useState(true);
 
@@ -46,6 +39,7 @@ function App() {
 
   const [isTooltipPopupOpen, setIsTooltipPopupOpen] = useState(false);
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); //для дизейбла кнопки, если происходит запрос
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -56,6 +50,7 @@ function App() {
     _id: ""
   });
 
+  const [allMovies, setAllMovies] = useState([]);
   const [foundMovies, setFoundMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedMoviesCopy, setSavedMoviesCopy] = useState([]);
@@ -68,6 +63,12 @@ function App() {
 
   useEffect(() => {
     tokenCheck();
+  }, []);
+
+  useEffect(() => {
+    if (!localStorage.getItem("jwt")) {
+      handleSignout();
+    }
   }, []);
 
   //блокировка чекбокса если нет найденных фильмов
@@ -85,26 +86,29 @@ function App() {
   }, [savedMovies, savedMoviesCopy]);
 
   useEffect(() => {
-    if (loggedIn) {
-      mainApi
-        .getSavedMovies()
-        .then((data) => {
-          const userMovies = data.filter((m) => m.owner === currentUser._id);
-          setSavedMovies(userMovies);
-          setSavedMoviesCopy(userMovies);
-        })
-        .catch((err) => console.log(err));
+    if (loggedIn && currentUser) {
+      getSavedMovies();
     }
-  }, [currentUser, loggedIn]);
+  }, [loggedIn, currentUser]);
+
+  function getSavedMovies() {
+    mainApi
+      .getSavedMovies()
+      .then((data) => {
+        const userMovies = data.filter((m) => m.owner === currentUser._id);
+        setSavedMovies(userMovies);
+        setSavedMoviesCopy(userMovies);
+      })
+      .catch((err) => console.log(err));
+  }
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem("searchedMovies"))) {
+    if (localStorage.getItem("searchedMovies")) {
       setFoundMovies(JSON.parse(localStorage.getItem("searchedMovies")));
     }
   }, []);
 
   function tokenCheck() {
-    const currentPath = location.pathname;
     if (localStorage.getItem("jwt")) {
       mainApi
         .getUserInfo()
@@ -116,13 +120,19 @@ function App() {
               _id: response._id
             });
             setLoggedIn(true);
-            history.push(currentPath);
           }
         })
         .catch((err) => {
-          setIsTooltipPopupOpen(true);
-          setSuccess(false);
-          setPopupText(`Ошибка: ${err}`);
+          if (err === 401) {
+            handleSignout();
+            setIsTooltipPopupOpen(true);
+            setSuccess(false);
+            setPopupText("Ошибка авторизации.");
+          } else {
+            setIsTooltipPopupOpen(true);
+            setSuccess(false);
+            setPopupText(`Ошибка ${err}`);
+          }
         });
     }
   }
@@ -136,6 +146,24 @@ function App() {
   }
 
   function handleSearchMovie(movie, checked) {
+    if (localStorage.getItem("allMovies")) {
+      setAllMovies(JSON.parse(localStorage.getItem("allMovies")));
+      const searchMovies = allMovies.filter((item) =>
+        item.nameRU.toLowerCase().includes(movie.toLowerCase())
+      );
+      if (searchMovies.length === 0) {
+        setIsTooltipPopupOpen(true);
+        setPopupText("По вашему запросу ничего не найдено.");
+        setSuccess(false);
+      } else {
+        setCheckboxStatus(false);
+        localStorage.setItem("movieName", movie);
+        localStorage.setItem("searchedMovies", JSON.stringify(searchMovies));
+        localStorage.setItem("checkboxStatus", JSON.stringify(checked));
+        setFoundMovies(searchMovies);
+      }
+      return;
+    }
     setPreloaderStatus(true);
     moviesApi
       .getMovies()
@@ -149,6 +177,7 @@ function App() {
           setSuccess(false);
         } else {
           setCheckboxStatus(false);
+          localStorage.setItem("allMovies", JSON.stringify(moviesFromSearch));
           localStorage.setItem("movieName", movie);
           localStorage.setItem("searchedMovies", JSON.stringify(searchMovies));
           localStorage.setItem("checkboxStatus", JSON.stringify(checked));
@@ -171,8 +200,6 @@ function App() {
       setPreloaderStatus(false);
     } else {
       setCheckboxStatus(false);
-      localStorage.setItem("savedMovieName", query);
-      localStorage.setItem("searchedSavedMovies", JSON.stringify(searchMovies));
       localStorage.setItem("checkboxStatus", JSON.stringify(checkbox));
       setFoundSavedMovies(searchMovies);
       setPreloaderStatus(false);
@@ -192,12 +219,12 @@ function App() {
   }
 
   function handleSavedMoviesSubmitCheckbox(checkbox) {
+    localStorage.setItem("checkboxStatusSavedMovies", JSON.stringify(checkbox));
     if (checkbox) {
       setSavedMovies(savedMovies.filter((item) => item.duration <= 40));
     } else if (!checkbox) {
       setSavedMovies(savedMoviesCopy);
     }
-    localStorage.setItem("checkboxStatusSavedMovies", JSON.stringify(checkbox));
   }
 
   function handleDeleteMovie(movie) {
@@ -226,6 +253,7 @@ function App() {
   }
 
   function handleUpdateUser({ name, email }) {
+    setIsLoading(true);
     mainApi
       .editUserInfo({ name, email })
       .then((newData) => {
@@ -233,24 +261,46 @@ function App() {
           name: newData.name,
           email: newData.email
         });
+        setIsTooltipPopupOpen(true);
+        setSuccess(true);
+        setPopupText("Данные успешно изменены.");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsTooltipPopupOpen(true);
+        setSuccess(false);
+        setPopupText(`Ошибка: ${err}`);
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleRegister({ name, email, password }) {
+    setIsLoading(true);
     auth
       .createUser({ name, email, password })
       .then(() => {
         handleLogin({ email, password });
+        history.push("/movies");
       })
-      .catch(() => {
-        setSuccess(false);
-        setPopupText("Что-то пошло не так. Попробуйте ещё раз!");
-        setIsTooltipPopupOpen(true);
+      .catch((err) => {
+        console.log(err);
+        if (err.status === 409) {
+          setSuccess(false);
+          setPopupText("Пользователь с таким email уже зарегистрирован.");
+          setIsTooltipPopupOpen(true);
+        }
+        if (err.status === 500) {
+          setSuccess(false);
+          setPopupText("Произошла ошибка. Попробуйте ещё раз.");
+          setIsTooltipPopupOpen(true);
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   function handleLogin({ email, password }) {
+    setIsLoading(true);
     auth
       .authorize({ email, password })
       .then((data) => {
@@ -265,11 +315,19 @@ function App() {
           history.push("/movies");
         }
       })
-      .catch(() => {
-        setSuccess(false);
-        setPopupText("Неверный логин или пароль.");
-        setIsTooltipPopupOpen(true);
-      });
+      .catch((err) => {
+        if (err.status === 401) {
+          setSuccess(false);
+          setPopupText("Неверный логин или пароль.");
+          setIsTooltipPopupOpen(true);
+        }
+        if (err.status === 500) {
+          setSuccess(false);
+          setPopupText("Произошла ошибка. Попробуйте ещё раз.");
+          setIsTooltipPopupOpen(true);
+        }
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleSignout() {
@@ -302,7 +360,6 @@ function App() {
             savedMovies={savedMovies}
             onSaveMovie={handleSaveMovie}
             onDeleteMovie={handleDeleteMovie}
-            loggedIn={loggedIn}
             submitCheckbox={handleSubmitCheckbox}
             disabled={checkboxStatus}
             onSubmitCheckbox={handleSubmitCheckbox}
@@ -319,22 +376,25 @@ function App() {
             disabled={checkboxStatus}
             onDeleteMovie={handleDeleteMovie}
             onSaveMovie={handleSaveMovie}
-            loggedIn={loggedIn}
             disabledCheckboxSaved={disabledCheckboxSaved}
             preloaderStatus={preloaderStatus}
           />
-          <Route path="/signup">
+          <Route exact path="/signup">
             {loggedIn ? (
               <Redirect to="/" />
             ) : (
-              <Register onRegister={handleRegister} />
+              <Register onRegister={handleRegister} isLoading={isLoading} />
             )}
           </Route>
-          <Route path="/signin">
+          <Route exact path="/signin">
             {loggedIn ? (
               <Redirect to="/" />
             ) : (
-              <Login onLogin={handleLogin} history={history} />
+              <Login
+                onLogin={handleLogin}
+                history={history}
+                isLoading={isLoading}
+              />
             )}
           </Route>
           <ProtectedRoute
@@ -343,6 +403,7 @@ function App() {
             onSignout={handleSignout}
             loggedIn={loggedIn}
             onUpdateUser={handleUpdateUser}
+            isLoading={isLoading}
           />
           <Route path="*" component={PageNotFound} history={history} />
         </Switch>

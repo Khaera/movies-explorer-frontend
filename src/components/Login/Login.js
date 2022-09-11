@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Login({ onLogin }) {
+function Login({ onLogin, isLoading }) {
   const [formValues, setFormValues] = useState({
     email: {
       value: "",
@@ -34,6 +34,10 @@ function Login({ onLogin }) {
       }
     }));
   }
+
+  useEffect(() => {
+    isLoading ? setDisabled(true) : setDisabled(false);
+  }, [isLoading]);
 
   useEffect(() => {
     isValid ? setDisabled(false) : setDisabled(true);
@@ -90,7 +94,7 @@ function Login({ onLogin }) {
         </span>
         <button
           className={`register__submit-button login__submit-button ${
-            !isValid && "register__submit-button-disabled"
+            isValid && !isLoading ? "" : "register__submit-button-disabled"
           }`}
           type="submit"
           disabled={disabled}
