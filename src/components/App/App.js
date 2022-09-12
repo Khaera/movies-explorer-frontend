@@ -158,8 +158,7 @@ function App() {
   }
 
   function handleSearchMovie(movie, checked) {
-    if (localStorage.getItem("allMovies")) {
-      setAllMovies(JSON.parse(localStorage.getItem("allMovies")));
+    if (allMovies.length !== 0) {
       const searchMovies = allMovies.filter((item) =>
         item.nameRU.toLowerCase().includes(movie.toLowerCase())
       );
@@ -175,29 +174,34 @@ function App() {
         setFoundMovies(searchMovies);
       }
       return;
+    } else {
+      setPreloaderStatus(true);
+      moviesApi
+        .getMovies()
+        .then((moviesFromSearch) => {
+          const searchMovies = moviesFromSearch.filter((item) =>
+            item.nameRU.toLowerCase().includes(movie.toLowerCase())
+          );
+          if (searchMovies.length === 0) {
+            setIsTooltipPopupOpen(true);
+            setPopupText("По вашему запросу ничего не найдено.");
+            setSuccess(false);
+          } else {
+            setCheckboxStatus(false);
+            localStorage.setItem("allMovies", JSON.stringify(moviesFromSearch));
+            setAllMovies(moviesFromSearch);
+            localStorage.setItem("movieName", movie);
+            localStorage.setItem(
+              "searchedMovies",
+              JSON.stringify(searchMovies)
+            );
+            localStorage.setItem("checkboxStatus", JSON.stringify(checked));
+            setFoundMovies(searchMovies);
+          }
+        })
+        .catch((err) => console.log(err))
+        .finally(() => setPreloaderStatus(false));
     }
-    setPreloaderStatus(true);
-    moviesApi
-      .getMovies()
-      .then((moviesFromSearch) => {
-        const searchMovies = moviesFromSearch.filter((item) =>
-          item.nameRU.toLowerCase().includes(movie.toLowerCase())
-        );
-        if (searchMovies.length === 0) {
-          setIsTooltipPopupOpen(true);
-          setPopupText("По вашему запросу ничего не найдено.");
-          setSuccess(false);
-        } else {
-          setCheckboxStatus(false);
-          localStorage.setItem("allMovies", JSON.stringify(moviesFromSearch));
-          localStorage.setItem("movieName", movie);
-          localStorage.setItem("searchedMovies", JSON.stringify(searchMovies));
-          localStorage.setItem("checkboxStatus", JSON.stringify(checked));
-          setFoundMovies(searchMovies);
-        }
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setPreloaderStatus(false));
   }
 
   function handleSearchSavedMovie(query, checkbox) {
@@ -346,6 +350,7 @@ function App() {
     localStorage.clear();
     setLoggedIn(false);
     setFoundMovies([]);
+    setAllMovies([]);
     setCurrentUser({ name: "", email: "", _id: "" });
     history.push("/");
   }
