@@ -24,7 +24,9 @@ function SavedMovies({
           <Preloader />
         ) : (
           <MoviesCardList
-            foundMovies={foundSavedMovies || savedMovies}
+            foundMovies={
+              foundSavedMovies.length === 0 ? savedMovies : foundSavedMovies
+            }
             onSaveMovie={onSaveMovie}
             savedMovies={savedMovies}
             onDeleteMovie={onDeleteMovie}

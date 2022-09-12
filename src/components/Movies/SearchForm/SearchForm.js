@@ -12,15 +12,15 @@ function SearchForm({ onSearch, onSubmitCheckbox, disabled, disabledSaved }) {
   const location = useLocation();
 
   useEffect(() => {
-    const checkboxStatus = JSON.parse(
-      localStorage.getItem("checkboxStatusSavedMovies")
-    );
     // эффект, который устанавливает значения полей input и checkbox, если они сохранены в памяти
     if (location.pathname === "/movies") {
       setInputValue(localStorage.getItem("movieName"));
       setCheckbox(JSON.parse(localStorage.getItem("checkboxStatus")));
       setInputSearchError({});
     } else if (location.pathname === "/saved-movies") {
+      const checkboxStatus = JSON.parse(
+        localStorage.getItem("checkboxStatusSavedMovies")
+      );
       setCheckbox(checkboxStatus);
       onSubmitCheckbox(checkboxStatus);
     }

@@ -74,14 +74,26 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (location.pathname !== "/saved-movies") {
+    if (location.pathname !== "/saved-movies" && savedMovies.length !== 0) {
+      console.log(savedMovies);
       setFoundSavedMovies(savedMovies);
     }
-  }, [location]);
+  }, [location, savedMovies]);
 
   useEffect(() => {
     if (!localStorage.getItem("jwt")) {
       handleSignout();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (
+      localStorage.getItem("searchedMovies") &&
+      localStorage.getItem("checkboxStatus")
+    ) {
+      const checkboxStatus = JSON.parse(localStorage.getItem("checkboxStatus"));
+      console.log(checkboxStatus);
+      handleSubmitCheckbox(checkboxStatus);
     }
   }, []);
 
@@ -225,9 +237,9 @@ function App() {
   function handleSubmitCheckbox(checkbox) {
     let filteredMovies;
     let movies = JSON.parse(localStorage.getItem("searchedMovies"));
-    if (checkbox) {
+    if (checkbox === true) {
       filteredMovies = movies.filter((item) => item.duration <= 40);
-    } else if (!checkbox) {
+    } else if (checkbox === false) {
       filteredMovies = movies;
     }
     setFoundMovies(filteredMovies);
@@ -237,9 +249,9 @@ function App() {
   function handleSavedMoviesSubmitCheckbox(checkbox) {
     localStorage.setItem("checkboxStatusSavedMovies", JSON.stringify(checkbox));
     if (checkbox) {
-      setSavedMovies(savedMovies.filter((item) => item.duration <= 40));
+      setFoundSavedMovies(savedMovies.filter((item) => item.duration <= 40));
     } else if (!checkbox) {
-      setSavedMovies(savedMoviesCopy);
+      setFoundSavedMovies(savedMoviesCopy);
     }
   }
 
