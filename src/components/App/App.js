@@ -153,7 +153,7 @@ function App() {
       );
       if (searchMovies.length === 0) {
         setIsTooltipPopupOpen(true);
-        setPopupText("По вашему запросу ничего не найдено.");
+        setPopupText("По вашему запросу ничего не найдено..");
         setSuccess(false);
       } else {
         setCheckboxStatus(false);
