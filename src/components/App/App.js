@@ -74,11 +74,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (location.pathname !== "/saved-movies" && savedMovies.length !== 0) {
-      console.log(savedMovies);
+    if (location.pathname !== "/saved-movies") {
       setFoundSavedMovies(savedMovies);
     }
-  }, [location, savedMovies]);
+  }, [location]);
 
   useEffect(() => {
     if (!localStorage.getItem("jwt")) {
