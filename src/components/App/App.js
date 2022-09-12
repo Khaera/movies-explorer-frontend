@@ -1,7 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "./App.css";
 
-import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useLocation
+} from "react-router-dom";
 
 import { useState, useEffect } from "react";
 
@@ -31,6 +37,8 @@ import moviesApi from "../../utils/MoviesApi";
 
 function App() {
   const history = useHistory();
+
+  const location = useLocation();
 
   const [checkboxStatus, setCheckboxStatus] = useState(true);
 
@@ -64,6 +72,12 @@ function App() {
   useEffect(() => {
     tokenCheck();
   }, []);
+
+  useEffect(() => {
+    if (location.pathname !== "/saved-movies") {
+      setFoundSavedMovies(savedMovies);
+    }
+  }, [location]);
 
   useEffect(() => {
     if (!localStorage.getItem("jwt")) {
@@ -123,15 +137,13 @@ function App() {
           }
         })
         .catch((err) => {
-          if (err === 401) {
+          if (err.status === 401) {
+            handleSignout();
+          } else {
             handleSignout();
             setIsTooltipPopupOpen(true);
             setSuccess(false);
-            setPopupText("Ошибка авторизации.");
-          } else {
-            setIsTooltipPopupOpen(true);
-            setSuccess(false);
-            setPopupText(`Ошибка ${err}`);
+            setPopupText(`Ошибка ${err.statusText}`);
           }
         });
     }
