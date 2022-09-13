@@ -24,7 +24,7 @@ function SearchForm({ onSearch, onSubmitCheckbox, disabled, disabledSaved }) {
       setCheckbox(checkboxStatus);
       onSubmitCheckbox(checkboxStatus);
     }
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     inputSearchError.isValid &&

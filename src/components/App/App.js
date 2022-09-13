@@ -1,13 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "./App.css";
 
-import {
-  Redirect,
-  Route,
-  Switch,
-  useHistory,
-  useLocation
-} from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 
@@ -38,8 +32,6 @@ import moviesApi from "../../utils/MoviesApi";
 function App() {
   const history = useHistory();
 
-  const location = useLocation();
-
   const [checkboxStatus, setCheckboxStatus] = useState(true);
 
   const headerEndpoints = ["/movies", "/saved-movies", "/profile", "/"];
@@ -62,7 +54,6 @@ function App() {
   const [foundMovies, setFoundMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedMoviesCopy, setSavedMoviesCopy] = useState([]);
-  const [foundSavedMovies, setFoundSavedMovies] = useState("");
 
   const [disabledCheckbox, setDisabledCheckbox] = useState(true);
   const [disabledCheckboxSaved, setDisabledCheckboxSaved] = useState(true);
@@ -72,12 +63,6 @@ function App() {
   useEffect(() => {
     tokenCheck();
   }, []);
-
-  useEffect(() => {
-    if (location.pathname !== "/saved-movies") {
-      setFoundSavedMovies(savedMovies);
-    }
-  }, [location]);
 
   useEffect(() => {
     if (!localStorage.getItem("jwt")) {
@@ -91,7 +76,6 @@ function App() {
       localStorage.getItem("checkboxStatus")
     ) {
       const checkboxStatus = JSON.parse(localStorage.getItem("checkboxStatus"));
-      console.log(checkboxStatus);
       handleSubmitCheckbox(checkboxStatus);
     }
   }, []);
@@ -126,12 +110,6 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
-
-  useEffect(() => {
-    if (localStorage.getItem("searchedMovies")) {
-      setFoundMovies(JSON.parse(localStorage.getItem("searchedMovies")));
-    }
-  }, []);
 
   function tokenCheck() {
     if (localStorage.getItem("jwt")) {
@@ -228,7 +206,7 @@ function App() {
     } else {
       setCheckboxStatus(false);
       localStorage.setItem("checkboxStatus", JSON.stringify(checkbox));
-      setFoundSavedMovies(searchMovies);
+      setSavedMovies(searchMovies);
       setPreloaderStatus(false);
     }
   }
@@ -236,9 +214,9 @@ function App() {
   function handleSubmitCheckbox(checkbox) {
     let filteredMovies;
     let movies = JSON.parse(localStorage.getItem("searchedMovies"));
-    if (checkbox === true) {
+    if (checkbox) {
       filteredMovies = movies.filter((item) => item.duration <= 40);
-    } else if (checkbox === false) {
+    } else if (!checkbox) {
       filteredMovies = movies;
     }
     setFoundMovies(filteredMovies);
@@ -246,12 +224,12 @@ function App() {
   }
 
   function handleSavedMoviesSubmitCheckbox(checkbox) {
-    localStorage.setItem("checkboxStatusSavedMovies", JSON.stringify(checkbox));
     if (checkbox) {
-      setFoundSavedMovies(savedMovies.filter((item) => item.duration <= 40));
+      setSavedMovies(savedMovies.filter((item) => item.duration <= 40));
     } else if (!checkbox) {
-      setFoundSavedMovies(savedMoviesCopy);
+      setSavedMovies(savedMoviesCopy);
     }
+    localStorage.setItem("checkboxStatusSavedMovies", JSON.stringify(checkbox));
   }
 
   function handleDeleteMovie(movie) {
@@ -362,6 +340,7 @@ function App() {
     setLoggedIn(false);
     setFoundMovies([]);
     setAllMovies([]);
+    setSavedMovies([]);
     setCurrentUser({ name: "", email: "", _id: "" });
     history.push("/");
   }
@@ -388,7 +367,6 @@ function App() {
             savedMovies={savedMovies}
             onSaveMovie={handleSaveMovie}
             onDeleteMovie={handleDeleteMovie}
-            submitCheckbox={handleSubmitCheckbox}
             disabled={checkboxStatus}
             onSubmitCheckbox={handleSubmitCheckbox}
             disabledCheckbox={disabledCheckbox}
@@ -399,7 +377,6 @@ function App() {
             component={SavedMovies}
             onSearch={handleSearchSavedMovie}
             savedMovies={savedMovies}
-            foundSavedMovies={foundSavedMovies}
             onSubmitCheckbox={handleSavedMoviesSubmitCheckbox}
             disabled={checkboxStatus}
             onDeleteMovie={handleDeleteMovie}

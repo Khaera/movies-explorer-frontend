@@ -4,7 +4,6 @@ import Preloader from "../Preloader/Preloader";
 
 function SavedMovies({
   onSearch,
-  foundSavedMovies,
   savedMovies,
   onSaveMovie,
   onDeleteMovie,
@@ -24,9 +23,7 @@ function SavedMovies({
           <Preloader />
         ) : (
           <MoviesCardList
-            foundMovies={
-              foundSavedMovies.length === 0 ? savedMovies : foundSavedMovies
-            }
+            foundMovies={savedMovies}
             onSaveMovie={onSaveMovie}
             savedMovies={savedMovies}
             onDeleteMovie={onDeleteMovie}
