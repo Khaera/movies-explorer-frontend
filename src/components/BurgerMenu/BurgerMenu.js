@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function BurgerMenu({ isOpen, onBurgerClick }) {
   return (
@@ -9,35 +9,43 @@ function BurgerMenu({ isOpen, onBurgerClick }) {
         onClick={onBurgerClick}
       ></button>
       <div className="burger__container">
-        <Link
+        <NavLink
+          exact
           to="/"
+          activeClassName="burger__link_active"
           className="navigation__film-link burger__link"
           onClick={onBurgerClick} //для закрытия меню при переходе по ссылке
         >
           Главная
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
+          exact
           to="/movies"
+          activeClassName="burger__link_active"
           className="navigation__film-link burger__link"
           onClick={onBurgerClick}
         >
           Фильмы
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
+          activeClassName="burger__link_active"
+          exact
           to="/saved-movies"
           className="navigation__film-link burger__link"
           onClick={onBurgerClick}
         >
           Сохранённые фильмы
-        </Link>
+        </NavLink>
         <div className="navigation__account burger__account">
-          <Link
+          <NavLink
+            activeClassName="burger__link_active"
+            exact
             to="/profile"
             className="navigation__account-link"
             onClick={onBurgerClick}
           >
             Аккаунт
-          </Link>
+          </NavLink>
           <p className="navigation__account-image"></p>
         </div>
       </div>

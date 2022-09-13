@@ -1,20 +1,66 @@
 import { Route } from "react-router-dom";
-import movieImage from "../../../images/movie.png";
+import { handleChangeDuration } from "../../../utils/constants";
+import saveIcon from "../../../images/like-icon.svg";
+import savedIcon from "../../../images/liked-icon.svg";
+import deleteIcon from "../../../images/delete-icon.svg";
 
-function MoviesCard({ title, duration }) {
+function MoviesCard({ movie, onSaveMovie, onDeleteMovie, savedMovies }) {
+  const savedMovie = savedMovies.find((m) => m.movieId === movie.id);
+
+  function submitMovie() {
+    if (!savedMovie) {
+      onSaveMovie(movie);
+    } else {
+      onDeleteMovie(savedMovie);
+    }
+  }
+
+  function handleDeleteMovie() {
+    onDeleteMovie(movie);
+  }
+
   return (
     <li className="movie">
-      <img className="movie__image" src={movieImage} alt="изображение фильма" />
+      <Route path="/movies">
+        <a href={movie.trailerLink} target="blank">
+          <img
+            className="movie__image"
+            src={`https://api.nomoreparties.co${movie.image.url}`}
+            alt="изображение фильма"
+          />
+        </a>
+      </Route>
+      <Route path="/saved-movies">
+        <a href={movie.trailerLink} target="blank">
+          <img
+            className="movie__image"
+            src={movie.image}
+            alt="изображение фильма"
+          />
+        </a>
+      </Route>
       <div className="movie__wrapper">
-        <h2 className="movie__title">{title}</h2>
+        <h2 className="movie__title">{movie.nameRU}</h2>
         <Route path="/movies">
-          <button className="movie__like-button" type="button" />
+          <img
+            alt="Поставить-убрать лайк"
+            className="movie__like-button"
+            onClick={submitMovie}
+            src={!savedMovie ? saveIcon : savedIcon}
+          />
         </Route>
         <Route path="/saved-movies">
-          <button className="movie__delete-button" type="button" />
+          <img
+            alt="Удалить фильм"
+            className="movie__delete-button"
+            src={deleteIcon}
+            onClick={handleDeleteMovie}
+          />
         </Route>
       </div>
-      <p className="movie__duration">{duration}</p>
+      <p className="movie__duration">
+        {handleChangeDuration(movie.duration, movie)}
+      </p>
     </li>
   );
 }

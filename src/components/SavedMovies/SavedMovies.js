@@ -1,16 +1,34 @@
 import SearchForm from "../Movies/SearchForm/SearchForm";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
-import MoviesCard from "../Movies/MoviesCard/MoviesCard";
+import Preloader from "../Preloader/Preloader";
 
-function SavedMovies() {
+function SavedMovies({
+  onSearch,
+  savedMovies,
+  onSaveMovie,
+  onDeleteMovie,
+  disabledCheckboxSaved,
+  onSubmitCheckbox,
+  preloaderStatus
+}) {
   return (
     <>
       <section className="saved-movies">
-        <SearchForm />
-        <MoviesCardList>
-          <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-          <MoviesCard title={"33 слова о дизайне"} duration={"1ч42м"} />
-        </MoviesCardList>
+        <SearchForm
+          onSearch={onSearch}
+          onSubmitCheckbox={onSubmitCheckbox}
+          disabledSaved={disabledCheckboxSaved}
+        />
+        {preloaderStatus ? (
+          <Preloader />
+        ) : (
+          <MoviesCardList
+            foundMovies={savedMovies}
+            onSaveMovie={onSaveMovie}
+            savedMovies={savedMovies}
+            onDeleteMovie={onDeleteMovie}
+          />
+        )}
       </section>
     </>
   );

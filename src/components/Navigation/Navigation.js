@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import burgerButton from "../../images/burger-button.svg";
 
 function Navigation({ onBurgerClick }) {
@@ -6,17 +6,32 @@ function Navigation({ onBurgerClick }) {
     <>
       <nav className="navigation">
         <div className="navigation__films">
-          <Link to="/movies" className="navigation__film-link">
+          <NavLink
+            activeClassName="navigation__film-link_active"
+            exact
+            to="/movies"
+            className="navigation__film-link"
+          >
             Фильмы
-          </Link>
-          <Link to="/saved-movies" className="navigation__film-link">
+          </NavLink>
+          <NavLink
+            activeClassName="navigation__film-link_active"
+            exact
+            to="/saved-movies"
+            className="navigation__film-link"
+          >
             Сохранённые фильмы
-          </Link>
+          </NavLink>
         </div>
         <div className="navigation__account">
-          <Link to="/profile" className="navigation__account-link">
+          <NavLink
+            activeClassName="navigation__film-link_active"
+            exact
+            to="/profile"
+            className="navigation__account-link"
+          >
             Аккаунт
-          </Link>
+          </NavLink>
           <p className="navigation__account-image"></p>
         </div>
       </nav>
